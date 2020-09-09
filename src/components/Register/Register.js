@@ -1,5 +1,5 @@
 import React from 'react'
-import './Login.css'
+import './Register.css'
 import Container from '@material-ui/core/Container';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
@@ -8,40 +8,14 @@ import Button from '@material-ui/core/Button'
 import {withRouter} from 'react-router-dom';
 
 
-class Login extends React.Component{
-    state = {
-        "username":"",
-        "password":""
+class Register extends React.Component{
+
+    componentDidMount =()=>{
+        this.props.doRegister();
     }
 
-    handleUsername = (e) =>{
-        this.setState({...this,"username":e.target.value})
-    }
-
-    handlePassword = (e) =>{
-        this.setState({...this,"password":e.target.value})
-    }
-
-    handleSubmit = (e) =>{
-        e.preventDefault();
-        const {handleLogin} = this.props;
-        if(localStorage.getItem(this.state.username)){
-            handleLogin(true,this.state.username)
-            localStorage.setItem("isLogged",true)
-        } else {
-            handleLogin(false,null)
-            localStorage.removeItem("isLogged")
-        }
-    }
-
-    register = (e) => {
-        e.preventDefault();
-        this.props.history.push("/register");
-        
-    }
 
     render(){
-        
         return(
             <Container className='Box' variant="contained">
                 
@@ -61,8 +35,9 @@ class Login extends React.Component{
 
                 </form>
             </Container>
-        );
+        )
     }
+    
 }
 
-export default withRouter(Login);
+export default withRouter(Register);

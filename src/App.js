@@ -3,6 +3,7 @@ import AddTodo from './components/AddTodo/AddTodo'
 import './App.css';
 import Login from './components/Login/Login';
 import LoggedView from './components/LoggedView/LoggedView'
+import Register from './components/Register/Register'
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,12 +14,20 @@ import {
 class App extends React.Component{
   state = {
     "Usuario":null,
-    "IsLogged":false
+    "IsLogged":false,
+    "data":[{
+      "description": "some description text ",
+      "responsible": {
+          "name": "Santiago Carrillo",
+          "email": "sancarbar@gmail"
+      },
+      "status": "ready",
+      "dueDate": 156464645646
+  }]
   }
 
 
   changeLogin = (bool,user) =>{
-    console.log("Me deberia quedar acá")
     this.setState({
       "Usuario":user,
       "IsLogged":bool
@@ -26,28 +35,32 @@ class App extends React.Component{
 
   }
 
+  doRegister = () =>{
+    console.log("Entre acá")
+  }
+
   render(){
     let elementRender = null;
     if(!this.state.IsLogged){
       elementRender = <Login handleLogin={this.changeLogin}></Login>
-      console.log("Entre al login");
     } else {
-      elementRender = <LoggedView usuario={this.state.Usuario}></LoggedView>
-
-      
-      
-    
+      elementRender = <LoggedView usuario={this.state.Usuario} todoData={this.state.data}></LoggedView>
     }
+
+    
     return (
       <div className="App">
         <Router>
         <Switch>
-          <Route exact path="/addTodo" component={AddTodo}/>
+          <Route exact path="/" render={()=>elementRender}/>
+          <Route path="/addTodo" component={AddTodo}/>
+          <Route path="/register">
+            <Register doRegister={this.doRegister}/>
+          </Route>
         
         
         </Switch>
         </Router>
-        {elementRender}
         
       </div>
     );

@@ -1,8 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
+import AddTodo from './components/AddTodo/AddTodo'
 import './App.css';
 import Login from './components/Login/Login';
 import LoggedView from './components/LoggedView/LoggedView'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 
 class App extends React.Component{
@@ -13,6 +18,7 @@ class App extends React.Component{
 
 
   changeLogin = (bool,user) =>{
+    console.log("Me deberia quedar acá")
     this.setState({
       "Usuario":user,
       "IsLogged":bool
@@ -24,12 +30,25 @@ class App extends React.Component{
     let elementRender = null;
     if(!this.state.IsLogged){
       elementRender = <Login handleLogin={this.changeLogin}></Login>
+      console.log("Entre al login");
     } else {
       elementRender = <LoggedView usuario={this.state.Usuario}></LoggedView>
+
+      
+      
+    
     }
     return (
       <div className="App">
+        <Router>
+        <Switch>
+          <Route exact path="/addTodo" component={AddTodo}/>
+        
+        
+        </Switch>
+        </Router>
         {elementRender}
+        
       </div>
     );
   }

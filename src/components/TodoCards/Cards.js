@@ -14,13 +14,10 @@ class Cards extends React.Component{
         let icon = null;
         if(info.status.localeCompare("completed") === 0){
             icon = <CheckIcon></CheckIcon>
-            console.log("Completed");
         } else if(info.status.localeCompare("ready") === 0){
             icon = <AlarmOnIcon></AlarmOnIcon>
-            console.log("Ready");
         } else {
             icon = <AutorenewIcon></AutorenewIcon>
-            console.log("In Progress");
         }
         return(
 

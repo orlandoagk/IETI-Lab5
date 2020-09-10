@@ -35,9 +35,16 @@ class App extends React.Component{
 
   }
 
-  doRegister = () =>{
-    console.log("Entre acá")
+  newTask = (task) =>{
+    let arrayTMP = this.state.data
+    arrayTMP.push(task)
+    this.setState({
+      "data":arrayTMP
+    })
+    
   }
+
+
 
   render(){
     let elementRender = null;
@@ -48,14 +55,17 @@ class App extends React.Component{
     }
 
     
+    
     return (
       <div className="App">
         <Router>
         <Switch>
           <Route exact path="/" render={()=>elementRender}/>
-          <Route path="/addTodo" component={AddTodo}/>
+          <Route path="/addTodo">
+            <AddTodo newTask={this.newTask}/>
+          </Route>
           <Route path="/register">
-            <Register doRegister={this.doRegister}/>
+            <Register doRegister={this.changeLogin}/>
           </Route>
         
         
